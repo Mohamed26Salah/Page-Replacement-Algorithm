@@ -19,7 +19,7 @@ int findLeastRecentlyUsed(int time[], int num) {
 int main()
 {
     string name = "";
-    cout << "Enter the name of the algorithm you want to try\n";
+    cout << "Enter the name of the algorithm you want to try (FIFO,LRU,OPTIMAL)\n";
     cin >> name;
     if (name == "FIFO") {
 		
