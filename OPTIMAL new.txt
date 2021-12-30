@@ -1,0 +1,93 @@
+
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int frame_num, page_num, frames[10], pages[30], hit = 0, temp[10], flag1, flag2, flag3, i, j, k, pos, max, faults = 0;
+    cout << "Enter number of pages: ";
+    cin >> page_num;
+    cout << "Enter reference string: ";
+    for (i = 0; i < page_num; ++i) {
+        cin >> pages[i];
+    }
+    cout << "Enter number of frames: ";
+    cin >> frame_num;
+    //bt7ot kolo bel negative
+    for (i = 0; i < frame_num; ++i) {
+        frames[i] = -1;
+    }
+    //btshoof el7agat elshbah b3d
+    for (i = 0; i < page_num; ++i) {
+        flag1 = flag2 = 0;
+
+        for (j = 0; j < frame_num; ++j) {
+            if (frames[j] == pages[i]) {
+                flag1 = flag2 = 1;
+                hit++;
+                break;
+            }
+        }
+    //btshoof meen belnegative
+        if (flag1 == 0) {
+            for (j = 0; j < frame_num; ++j) {
+                if (frames[j] == -1) {
+                    faults++;
+                    frames[j] = pages[i];
+                    flag2 = 1;
+                    break;
+                }
+            }
+        }
+     //optimal
+        if (flag2 == 0) {
+            flag3 = 0;
+            for (j = 0; j < frame_num; ++j) {
+                temp[j] = -1;
+                for (k = i + 1; k < page_num; ++k) {
+                    if (frames[j] == pages[k])
+                    {
+                        temp[j] = k;
+                        break;
+                    }
+                }
+            }
+            //fcfs 
+            for (j = 0; j < frame_num; ++j) {
+                if (temp[j] == -1)
+                {
+                    pos = j;
+                    flag3 = 1;
+                    break;
+                }
+
+            }
+            if (flag3 == 0)
+            {
+                max = temp[0];
+                pos = 0;
+                for (j = 1; j < frame_num; ++j)
+                {
+                    if (temp[j] > max) {
+                        max = temp[j];
+                        pos = j;
+
+                    }
+                }
+            }
+            frames[pos] = pages[i];
+            faults++;
+        }
+
+        cout << "\n";
+
+        for (j = 0; j < frame_num; ++j) {
+            cout << frames[j] << "\t";
+        }
+    }
+    cout << "\n\nTotal Page Faults = " << faults;
+    cout << "\n The number of hits = " << hit;
+    return 0;
+}
+

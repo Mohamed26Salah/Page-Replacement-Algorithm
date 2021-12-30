@@ -1,0 +1,84 @@
+
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+//by7sb 2b3d wa7ed fe el array tm est3maloh 
+int findLeastRecentlyUsed(int time[], int num) {
+    int g, min = time[0], pos = 0;
+
+    for (g = 1; g < num; ++g) {
+
+        if (time[g] < min) {
+            min = time[g];
+            pos = g;
+        }
+
+    }
+    return pos;
+}
+
+int main()
+{
+    int frame_num, page_num,frames[20], pages[50], counter = 0, time[20], flag_1, flag_2, i, j, pos, faults = 0,hit=0;
+    cout << "Enter the number of pages: ";
+    cin >> page_num;
+
+    cout << "Enter the reference string: ";
+    for (i = 0; i < page_num; ++i) {
+        cin >> pages[i];
+    }
+
+    cout << "Enter the number of frames: ";
+    cin >> frame_num;
+    
+    //3by kolo be -1
+    for (i = 0; i < frame_num; ++i) {
+        frames[i] = -1;
+    }
+    //btlf 7waleen el reference string
+    for (i = 0; i < page_num; ++i) {
+        flag_1 = flag_2 = 0;
+        //btshoof fe 7ad shbhaa wla l2
+        for (j = 0; j < frame_num; ++j) {
+            if (frames[j] == pages[i]) {
+                counter++;
+                time[j] = counter;
+                flag_1 = flag_2 = 1;
+                hit++;
+                break;
+            }
+
+        }
+        //btshoof fe negative one wla l2
+        if (flag_1 == 0) {
+            for (j = 0; j < frame_num; ++j) {
+                if (frames[j] == -1) {
+                    counter++;
+                    faults++;
+                    frames[j] = pages[i];
+                    time[j] = counter;
+                    flag_2 = 1;
+                    break;
+                }
+            }
+        }
+        //btshoof meen elvictim ely hytbdl
+        if (flag_2 == 0) {
+            pos = findLeastRecentlyUsed(time, frame_num);
+            counter++;
+            faults++;
+            frames[pos] = pages[i];
+            time[pos] = counter;
+        }
+
+        cout << "\n";
+        // display the frames
+        for (j = 0; j < frame_num; ++j) {
+            cout << frames[j] << "\t";
+        }
+    }
+    cout << "\n\nTotal Page Faults = " << faults;
+    cout << "\nTotal number of hits = " << hit;
+    return 0;
+}
