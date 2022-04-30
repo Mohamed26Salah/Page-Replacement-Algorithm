@@ -101,10 +101,10 @@ int main()
             //btshoof fe 7ad shbhaa wla l2
             for (jj = 0; jj < frame_num; ++jj) {
                 if (framesArray[jj] == pagesArray[ii]) {
-              
-                    time[jj] = counter;
+					//small mistake here
 					counter++;
 					numOfhits++;
+                    time[jj] = counter;
                     flag_1 = flag_2 = 1;
 					
                     break;
@@ -159,10 +159,10 @@ int main()
 	for (ii = 0; ii < frame_num; ++ii) {
 		framesArray[ii] = -1;
 	}
-	//btshoof el7agat elshbah b3d
+	
 	for (ii = 0; ii < page_num; ++ii) {
 		flag_1 = flag_2 = 0;
-
+		//btshoof el7agat elshbah b3d
 		for (jj = 0; jj < frame_num; ++jj) {
 			if (framesArray[jj] == pagesArray[ii]) {
 				flag_1 = flag_2 = 1;
